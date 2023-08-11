@@ -100,7 +100,7 @@ $pageSize = isset($_GET['pageSize']) ? $_GET['pageSize'] : 10;
                         <div class="relative" onclick="showDroplist('status-droplist')" id="status-search">
                             <span class="text-[13px] cursor-pointer absolute px-[5px] bg-white -top-[10px] left-[15px]">Trạng thái</span>
                             <input type="text" value="<?= isset($_GET['search-status']) ? $_GET['search-status'] : null?>" class="hidden" name="search-status">
-                            <input type="text" readonly value="<?= isset($_GET['search-status']) ? ($_GET['search-status'] == 1 ? "Đã duyệt" : ($_GET['search-status'] == 2 ? "Không duyệt" : ($_GET['search-status'] == 0 ? "Chưa duyệt" : "Tất cả"))) : 'Tất cả' ?>"
+                            <input type="text" readonly value="<?= isset($_GET['search-status']) ? ($_GET['search-status'] == 1 ? "Đã duyệt" : ($_GET['search-status'] == 2 ? "Không duyệt" : ($_GET['search-status'] == 0 ? "Chờ duyệt" : "Tất cả"))) : 'Tất cả' ?>"
                                 class="cursor-pointer px-2.5 pl-[20px] py-[8px] w-[280px] border border-solid border-[#d8d8d8] rounded-[6px] focus-within:border focus-within:border-solid outline-0 text-[13px]">
                             <svg class="absolute right-[0px] top-[11px]" width="15" height="15" viewBox="0 0 15 15"
                                 fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -115,7 +115,7 @@ $pageSize = isset($_GET['pageSize']) ? $_GET['pageSize'] : 10;
                                 <span class="hover:bg-gray-100 px-[20px] py-[3px] text-[#505050]"
                                     onclick="select('status-search', 1, 'Đã duyệt')">Đã duyệt</span>
                                 <span class="hover:bg-gray-100 px-[20px] py-[3px] text-[#505050]"
-                                    onclick="select('status-search', 0, 'Chưa duyệt')">Chưa duyệt</span>
+                                    onclick="select('status-search', 0, 'Chờ duyệt')">Chờ duyệt</span>
                                     <span class="hover:bg-gray-100 px-[20px] py-[3px] text-[#505050]"
                                     onclick="select('status-search', 2, 'Không duyệt')">Không duyệt</span>
                             </div>
@@ -151,11 +151,11 @@ $pageSize = isset($_GET['pageSize']) ? $_GET['pageSize'] : 10;
                     <?php
                     $i = ($page - 1) * $pageSize ;
                     foreach (array_slice($products, ($page - 1) * $pageSize, $pageSize) as $prod): ?>
-                        <div class="grid grid-cols-11 py-[15px] border-b">
+                        <div class="grid grid-cols-11 py-[15px] border-b cursor-pointer" onclick="window.location.href = 'http://localhost/PharmaDI-Admin/product/product-detail.php?prodId=<?= $prod['SKU'] ?>'" >
                             <span class="text-[13px] truncate "><?= $i=$i+1 ?></span>
                             <span class="text-[13px] truncate"><?= $prod['SKU'] ?></span>
                             <span class="text-[13px] col-span-4 truncate max-w-[400px]"><?= $prod['prodName'] ?></span>
-                            <span class="text-[13px] truncate"><?= $prod['prodStatus'] == 1 ? "Đã duyệt" : "Chưa duyệt" ?></span>
+                            <span class="text-[13px] truncate"><?= $prod['prodStatus'] == 1 ? "Đã duyệt" : "Chờ duyệt" ?></span>
                             <span class="text-[13px] truncate"><?= $prod['prodCreatedDate'] ?></span>
                             <span class="text-[13px] truncate"><?= $prod['prodLastUpdate'] ?></span>
                             <span class="text-[13px] truncate max-w-[100px]"><?= $prod['prodCreatedUser'] ?></span>
@@ -166,9 +166,9 @@ $pageSize = isset($_GET['pageSize']) ? $_GET['pageSize'] : 10;
                         <div class="flex">
                             <select class="border border-[#d8d8d8] text-[13px] px-1 rounded-[2px] outline-0 mr-[10px]"
                                 onchange="this.form.submit()" name='pageSize'>
-                                <option value="5" <?php if($pageSize == 5) echo "selected"?>>5</option>
                                 <option value="10" <?php if($pageSize == 10) echo "selected"?>>10</option>
-                                <option value="15" <?php if($pageSize == 15) echo "selected"?>>15</option>
+                                <option value="30" <?php if($pageSize == 30) echo "selected"?>>30</option>
+                                <option value="50" <?php if($pageSize == 50) echo "selected"?>>50</option>
                             </select>
                             <span class="text-[13px] text-[#505050]">Tổng số <?= count($products) ?> kết quả</span>
                         </div>

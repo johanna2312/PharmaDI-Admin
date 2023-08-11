@@ -2,14 +2,14 @@
 <html lang="en">
 <?php
 require_once "pdo.php";
+$product = new Product();
+$prod = $product->prodDetail($_GET['prodId']);
 $brand = new Brand();
 $brands = $brand->getData();
 $tag = new Tag();
 $tags = $tag->getData();
 $cate = new Category();
 $cates = $cate->getData();
-
-$countries = json_decode(file_get_contents('https://restcountries.com/v3.1/all'));
 ?>
 
 <head>
@@ -20,7 +20,7 @@ $countries = json_decode(file_get_contents('https://restcountries.com/v3.1/all')
     <link href="https://fonts.googleapis.com/css2?family=Inter&family=Roboto&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="../asset/image/logo-shortcut.png" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>Thêm mới sản phẩm</title>
+    <title>Chi tiết sản phẩm</title>
     <style>
         body {
             font-family: "Inter";
@@ -78,119 +78,73 @@ $countries = json_decode(file_get_contents('https://restcountries.com/v3.1/all')
                             d="M1.09327 0.692102C1.35535 0.467463 1.74991 0.497814 1.97455 0.759893L6.97455 6.59323C7.17517 6.82728 7.17517 7.17266 6.97455 7.40672L1.97455 13.24C1.74991 13.5021 1.35535 13.5325 1.09327 13.3078C0.831188 13.0832 0.800837 12.6886 1.02548 12.4266L5.67684 6.99997L1.02548 1.57338C0.800837 1.3113 0.831188 0.916741 1.09327 0.692102Z"
                             fill="#0071AF" />
                     </svg>
-                    <span class="text-[#0071AF] px-1 font-[600]">Thêm mới sản phẩm</span>
+                    <span class="text-[#0071AF] px-1 font-[600]">Chi tiết sản phẩm</span>
                 </div>
                 <!-- Title -->
-                <span class="text-[19px] font-[600] text-[#0071AF] py-[20px]">THÊM MỚI SẢN PHẨM</span>
+                <div class="flex justify-between items-center py-[25px]">
+                    <span class="text-[#0071AF] font-[600]">CHI TIẾT SẢN PHẨM</span>
+                    <button type="button" onclick="window.location.href='http://localhost/PharmaDI-Admin/product/product-edit.php'"
+                        class="border-[#15A5E3] border border-solid px-[12px] py-[5px] text-[13px] rounded-[8px] text-[#0071AF]">Chỉnh sửa</button>
+                </div>
                 <!-- Textbox -->
                 <div class="flex justify-between mt-1">
                     <div class="relative">
                         <span class="text-[13px] absolute px-[5px] bg-white -top-[10px] left-[15px]">Mã sản phẩm</span>
-                        <input type="text" name="prodId" class="px-2.5 pl-[20px] py-[8px] w-[280px] border border-solid border-[#d8d8d8] rounded-[6px] focus-within:border-[#0071AF] focus-within:border focus-within:border-solid outline-0 text-[13px]">
+                        <input readonly type="text" value="<?= $prod['SKU']?>" name="prodId" class="px-2.5 pl-[20px] py-[8px] w-[280px] border border-solid border-[#d8d8d8] rounded-[6px] outline-0 text-[13px]">
                     </div>
                     <div class="relative">
                         <span class="text-[13px] absolute px-[5px] bg-white -top-[10px] left-[15px]">Trạng thái</span>
-                        <input type="text" value="0" class="hidden" name="prodStatus">
-                        <input type="text"
+                        <input type="text" name="prodStatus" value="<?= $prod['prodStatus'] == 0 ? "Chờ duyệt" : ($prod['prodStatus'] == 1 ? "Đã duyệt" :"Không duyệt") ?>"
                             class="px-2.5 pl-[20px] py-[8px] w-[280px] border border-solid border-[#d8d8d8] rounded-[6px] outline-0 text-[13px]"
                             value="Chờ duyệt" readonly>
                         </svg>
                     </div>
-                    <div class="relative" onclick="showDroplist('cate-droplist')" id='product-cate'>
+                    <div class="relative">
                         <span class="text-[13px] absolute px-[5px] bg-white -top-[10px] left-[15px]">Danh mục</span>
-                        <input type="text" value="" class="hidden" name="prodCateId">
-                        <input type="text" 
-                            class="cursor-pointer px-2.5 pl-[20px] py-[8px] w-[280px] border border-solid border-[#d8d8d8] rounded-[6px] focus-within:border-[#0071AF] focus-within:border focus-within:border-solid outline-0 text-[13px]"
+                        <input type="text" value="<?php
+                            foreach($cates as $cate)
+                                if($prod['cateId'] == $cate['cateId']) echo $cate['cateName'];
+                            ?>"
+                            class="px-2.5 pl-[20px] py-[8px] w-[280px] border border-solid border-[#d8d8d8] rounded-[6px]  outline-0 text-[13px]"
                             readonly>
-                        <svg class="absolute right-[10px] top-[11px]" width="15" height="15" viewBox="0 0 15 15"
-                            fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M2.76911 5.31995C2.93759 5.12339 3.23351 5.10063 3.43007 5.26911L7.50001 8.75763L11.57 5.26911C11.7665 5.10063 12.0624 5.12339 12.2309 5.31995C12.3994 5.51651 12.3766 5.81243 12.1801 5.98091L7.80507 9.73091C7.62953 9.88138 7.37049 9.88138 7.19495 9.73091L2.81995 5.98091C2.62339 5.81243 2.60063 5.51651 2.76911 5.31995Z"
-                                fill="#1C274C" />
-                        </svg>
-                        <div class="absolute flex flex-col bg-white z-10 w-full py-1 rounded-[6px] border border-[#d8d8d8] text-[13px] hidden max-h-[200px] overflow-y-scroll"
-                            id="cate-droplist">
-                            <?php foreach ($cates as $cate): ?>
-                                <span class="hover:bg-gray-100 px-[20px] py-[2px] text-[#505050]" onclick="select('product-cate', '<?=$cate['cateId']?>', '<?=$cate['cateName']?>')">
-                                    <?= $cate['cateName'] ?>
-                                </span>
-                            <?php endforeach; ?>
-                        </div>
                     </div>
-                    <div class="relative" onclick="showDroplist('tag-droplist')" id='product-tag'>
+                    <div class="relative">
                         <span class="text-[13px] absolute px-[5px] bg-white -top-[10px] left-[15px]">Tag</span>
-                        <input type="text" value="" class="hidden" name="prodTagId">
-                        <input type="text" readonly
-                            class="px-2.5 cursor-pointer pl-[20px] py-[8px] w-[280px] border border-solid border-[#d8d8d8] rounded-[6px] focus-within:border-[#0071AF] focus-within:border focus-within:border-solid outline-0 text-[13px]">
-                        <svg class="absolute right-[10px] top-[11px]" width="15" height="15" viewBox="0 0 15 15"
-                            fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M2.76911 5.31995C2.93759 5.12339 3.23351 5.10063 3.43007 5.26911L7.50001 8.75763L11.57 5.26911C11.7665 5.10063 12.0624 5.12339 12.2309 5.31995C12.3994 5.51651 12.3766 5.81243 12.1801 5.98091L7.80507 9.73091C7.62953 9.88138 7.37049 9.88138 7.19495 9.73091L2.81995 5.98091C2.62339 5.81243 2.60063 5.51651 2.76911 5.31995Z"
-                                fill="#1C274C" />
-                        </svg>
-                        <div class="absolute flex flex-col bg-white z-10 w-full py-1 rounded-[6px] border border-[#d8d8d8] text-[13px] hidden max-h-[200px] overflow-y-scroll"
-                            id="tag-droplist">
-                            <?php foreach ($tags as $tag): ?>
-                                <span class="hover:bg-gray-100 px-[20px] py-[2px] text-[#505050]" onclick="select('product-tag', '<?=$tag['tagId']?>', '<?=$tag['tagName']?>')">
-                                    <?= $tag['tagName'] ?>
-                                </span>
-                            <?php endforeach; ?>
-                        </div>
+                        <input type="text" readonly value="<?php
+                            foreach($tags as $tag)
+                                if($prod['tagId'] == $tag['tagId']) echo $tag['tagName'];
+                            ?>"
+                            class="px-2.5 pl-[20px] py-[8px] w-[280px] border border-solid border-[#d8d8d8] rounded-[6px]  outline-0 text-[13px]">
                     </div>
                 </div>
                 <div class="relative flex justify-between mt-5 w-full">
                     <span class="text-[13px] absolute px-[5px] bg-white -top-[10px] left-[15px]">Tên sản phẩm</span>
-                    <input type="text" name = "prodName"
-                        class="px-2.5 pl-[20px] py-[8px] w-[100%] border border-solid border-[#d8d8d8] rounded-[6px] focus-within:border-[#0071AF] focus-within:border focus-within:border-solid outline-0 text-[13px]">
+                    <input type="text" name = "prodName" value="<?= $prod['prodName']?>"
+                        class="px-2.5 pl-[20px] py-[8px] w-[100%] border border-solid border-[#d8d8d8] rounded-[6px]  outline-0 text-[13px]">
                 </div>
                 <div class="flex justify-between mt-5">
                     <div class="relative" onclick="showDroplist('brand-droplist')" id="product-brand">
                         <span
-                            class="text-[13px] cursor-pointer absolute px-[5px] bg-white -top-[10px] left-[15px]">Thương
+                            class="text-[13px] absolute px-[5px] bg-white -top-[10px] left-[15px]">Thương
                             hiệu</span>
-                            <input type="text" value="" class="hidden" name="prodBrandId">
-                        <input type="text" readonly
-                            class="cursor-pointer px-2.5 pl-[20px] py-[8px] w-[280px] border border-solid border-[#d8d8d8] rounded-[6px] focus-within:border-[#0071AF] focus-within:border focus-within:border-solid outline-0 text-[13px]">
-                        <svg class="absolute right-[10px] top-[11px]" width="15" height="15" viewBox="0 0 15 15"
-                            fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M2.76911 5.31995C2.93759 5.12339 3.23351 5.10063 3.43007 5.26911L7.50001 8.75763L11.57 5.26911C11.7665 5.10063 12.0624 5.12339 12.2309 5.31995C12.3994 5.51651 12.3766 5.81243 12.1801 5.98091L7.80507 9.73091C7.62953 9.88138 7.37049 9.88138 7.19495 9.73091L2.81995 5.98091C2.62339 5.81243 2.60063 5.51651 2.76911 5.31995Z"
-                                fill="#1C274C" />
-                        </svg>
-                        <div class="absolute flex flex-col bg-white z-10 w-full py-1 rounded-[6px] border border-[#d8d8d8] text-[13px] hidden max-h-[200px] overflow-y-scroll"
-                            id="brand-droplist">
-                            <?php foreach ($brands as $brand): ?>
-                                <span class="hover:bg-gray-100 px-[20px] py-[2px] text-[#505050]" onclick="select('product-brand', '<?=$brand['brandId']?>', '<?=$brand['brandName']?>')">
-                                    <?= $brand['brandName'] ?>
-                                </span>
-                            <?php endforeach; ?>
-                        </div>
+                        <input type="text" readonly value="<?php
+                            foreach($brands as $brand)
+                                if($prod['brandId'] == $brand['brandId']) echo $brand['brandName'];
+                            ?>"
+                            class="px-2.5 pl-[20px] py-[8px] w-[280px] border border-solid border-[#d8d8d8] rounded-[6px]  outline-0 text-[13px]">
                     </div>
-                    <div class="relative" onclick="showDroplist('country-droplist')" id='product-country'>
+                    <div class="relative">
                         <span class="text-[13px] absolute px-[5px] bg-white -top-[10px] left-[15px]">Quốc gia</span>
-                        <input type="text" readonly name="prodCountry"
-                            class="px-2.5 cursor-pointer pl-[20px] py-[8px] w-[280px] border border-solid border-[#d8d8d8] rounded-[6px] focus-within:border-[#0071AF] focus-within:border focus-within:border-solid outline-0 text-[13px]">
-                        <svg class="absolute right-[10px] top-[11px]" width="15" height="15" viewBox="0 0 15 15"
-                            fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M2.76911 5.31995C2.93759 5.12339 3.23351 5.10063 3.43007 5.26911L7.50001 8.75763L11.57 5.26911C11.7665 5.10063 12.0624 5.12339 12.2309 5.31995C12.3994 5.51651 12.3766 5.81243 12.1801 5.98091L7.80507 9.73091C7.62953 9.88138 7.37049 9.88138 7.19495 9.73091L2.81995 5.98091C2.62339 5.81243 2.60063 5.51651 2.76911 5.31995Z"
-                                fill="#1C274C" />
-                        </svg>
-                        <div class="absolute flex flex-col bg-white z-10 w-full py-1 rounded-[6px] border border-[#d8d8d8] text-[13px] hidden max-h-[200px] overflow-y-scroll"
-                            id="country-droplist">
-                            <?php foreach ($countries as $country): ?>
-                                <span class="hover:bg-gray-100 px-[20px] py-[2px] text-[#505050]" onclick="select('product-country', '<?= $country->{'name'}->{'common'} ?>' )"><?= $country->{'name'}->{'common'} ?></span>
-                            <?php endforeach; ?>
-                        </div>
-
+                        <input type="text" readonly name="prodCountry" value="<?= $prod['prodCountry']?>"
+                            class="px-2.5 pl-[20px] py-[8px] w-[280px] border border-solid border-[#d8d8d8] rounded-[6px]  outline-0 text-[13px]">
                     </div>
                     <div class="relative">
                         <span class="text-[13px] absolute px-[5px] bg-white -top-[10px] left-[15px]">Đơn vị</span>
-                        <input type="text" name="prodUnit" class="px-2.5 pl-[20px] py-[8px] w-[280px] border border-solid border-[#d8d8d8] rounded-[6px] focus-within:border-[#0071AF] focus-within:border focus-within:border-solid outline-0 text-[13px]">
+                        <input value="<?= $prod['prodUnit']?>" type="text" name="prodUnit" class="px-2.5 pl-[20px] py-[8px] w-[280px] border border-solid border-[#d8d8d8] rounded-[6px]  outline-0 text-[13px]">
                     </div>
                     <div class="relative">
                         <span class="text-[13px] absolute px-[5px] bg-white -top-[10px] left-[15px]">Đã bán</span>
-                        <input type="text" value="0" name="prodSellNumber"
+                        <input type="text" value="<?= $prod['prodSellNumber']?>" name="prodSellNumber"
                             class="px-2.5 pl-[20px] py-[8px] w-[280px] border border-solid border-[#d8d8d8] rounded-[6px] outline-0 text-[13px]"
                             readonly>
                     </div>
@@ -198,32 +152,32 @@ $countries = json_decode(file_get_contents('https://restcountries.com/v3.1/all')
                 <div class="flex items-center justify-between">
                     <div class="relative flex mt-5">
                         <span class="text-[13px] absolute px-[5px] bg-white -top-[10px] left-[15px]">Giá gốc</span>
-                        <input type="text" name="prodPrice" class="px-2.5 pl-[20px] py-[8px] w-[605px] border border-solid border-[#d8d8d8] rounded-[6px] focus-within:border-[#0071AF] focus-within:border focus-within:border-solid outline-0 text-[13px]">                
+                        <input value="<?= $prod['prodPrice']?>" type="text" name="prodPrice" class="px-2.5 pl-[20px] py-[8px] w-[605px] border border-solid border-[#d8d8d8] rounded-[6px]  outline-0 text-[13px]">                
                     </div>
                     <div class="relative flex mt-5">
                         <span class="text-[13px] absolute px-[5px] bg-white -top-[10px] left-[15px]">Giá khuyến mãi</span>
-                        <input type="text" name="prodPriceSale" class="px-2.5 pl-[20px] py-[8px] w-[605px] border border-solid border-[#d8d8d8] rounded-[6px] focus-within:border-[#0071AF] focus-within:border focus-within:border-solid outline-0 text-[13px]">                
+                        <input value="<?= $prod['prodPriceSale']?>" type="text" name="prodPriceSale" class="px-2.5 pl-[20px] py-[8px] w-[605px] border border-solid border-[#d8d8d8] rounded-[6px]  outline-0 text-[13px]">                
                     </div>
                 </div>
                 <div class="relative flex justify-between mt-5 w-full">
                     <span class="text-[13px] absolute px-[5px] bg-white -top-[10px] left-[15px]">Thành phần</span>
-                    <textarea name="prodIngredient" id=""
-                        class="h-max min-h-[60px] px-2.5 pl-[20px] py-[8px] w-[100%] border border-solid border-[#d8d8d8] rounded-[6px] focus-within:border-[#0071AF] focus-within:border focus-within:border-solid outline-0 text-[13px] resize-none"></textarea>
+                    <textarea readonly name="prodIngredient" value="<?= $prod['prodIngredient']?>"
+                        class="h-max min-h-[60px] px-2.5 pl-[20px] py-[8px] w-[100%] border border-solid border-[#d8d8d8] rounded-[6px]  outline-0 text-[13px] resize-none"><?= $prod['prodIngredient']?></textarea readonly>
                 </div>
                 <div class="relative flex justify-between mt-5 w-full">
                     <span class="text-[13px] absolute px-[5px] bg-white -top-[10px] left-[15px]">Dạng bào chế</span>
-                    <textarea name="prodDosageForms" id=""
-                        class="h-max min-h-[60px] px-2.5 pl-[20px] py-[8px] w-[100%] border border-solid border-[#d8d8d8] rounded-[6px] focus-within:border-[#0071AF] focus-within:border focus-within:border-solid outline-0 text-[13px] resize-none"></textarea>
+                    <textarea readonly name="prodDosageForms" value="<?= $prod['prodDosageForms']?>"
+                        class="h-max min-h-[60px] px-2.5 pl-[20px] py-[8px] w-[100%] border border-solid border-[#d8d8d8] rounded-[6px]  outline-0 text-[13px] resize-none"><?= $prod['prodDosageForms']?></textarea readonly>
                 </div>
                 <div class="relative flex justify-between mt-5 w-full">
                     <span class="text-[13px] absolute px-[5px] bg-white -top-[10px] left-[15px]">Liều dùng</span>
-                    <textarea name="prodDosage" id=""
-                        class="h-max min-h-[60px] px-2.5 pl-[20px] py-[8px] w-[100%] border border-solid border-[#d8d8d8] rounded-[6px] focus-within:border-[#0071AF] focus-within:border focus-within:border-solid outline-0 text-[13px] resize-none"></textarea>
+                    <textarea readonly name="prodDosage" value="<?= $prod['prodDosage']?>"
+                        class="h-max min-h-[60px] px-2.5 pl-[20px] py-[8px] w-[100%] border border-solid border-[#d8d8d8] rounded-[6px]  outline-0 text-[13px] resize-none"><?= $prod['prodDosage']?></textarea readonly>
                 </div>
                 <div class="relative flex justify-between mt-5 w-full">
                     <span class="text-[13px] absolute px-[5px] bg-white -top-[10px] left-[15px]">Mô tả sản phẩm</span>
-                    <textarea name="prodDescript" id=""
-                        class="h-max min-h-[100px] px-2.5 pl-[20px] py-[8px] w-[100%] border border-solid border-[#d8d8d8] rounded-[6px] focus-within:border-[#0071AF] focus-within:border focus-within:border-solid outline-0 text-[13px] resize-none"></textarea>
+                    <textarea readonly name="prodDescript" value="<?= $prod['prodDescrip']?>"
+                        class="h-max min-h-[100px] px-2.5 pl-[20px] py-[8px] w-[100%] border border-solid border-[#d8d8d8] rounded-[6px]  outline-0 text-[13px] resize-none"><?= $prod['prodDescrip']?></textarea>
                 </div>
                 <!-- Upload picture -->
                 <div class="flex">
@@ -240,7 +194,7 @@ $countries = json_decode(file_get_contents('https://restcountries.com/v3.1/all')
                         </svg>
                         <span class="text-[13px]">Tải ảnh</span>
                     </div>
-                    <div id='imgContainer' class="w-[120px] mr-5 h-[120px] border border-dashed border-[#d8d8d8] rounded-[8px] mt-5 flex flex-col justify-center items-center cursor-pointer hidden"></div>
+                    <div id='imgContainer' class="w-[120px] mr-5 h-[120px] border border-dashed border-[#d8d8d8] rounded-[8px] mt-5 flex flex-col justify-center items-center hidden"></div>
 
                 </div>
                 <!-- System detail -->
