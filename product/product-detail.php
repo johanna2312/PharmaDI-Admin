@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-require_once "pdo.php";
+require_once "product-pdo.php";
 $product = new Product();
 $prod = $product->prodDetail($_GET['prodId']);
 $brand = new Brand();

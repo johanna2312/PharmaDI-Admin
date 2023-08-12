@@ -1,5 +1,5 @@
 <?php
-require_once "pdo.php";
+require_once "product-pdo.php";
 $product = new Product();
 if (isset($_GET['search-prodName']) || isset($_GET['search-status']))
     $products = $product->getData($_GET['search-prodName'], $_GET['search-status']);
@@ -225,7 +225,7 @@ if (count($products) <= ($page - 1) * $pageSize) {
                                     <?php
                                     for ($i = 0; $i <= floor(count($products) / $pageSize); $i++): ?>
                                         <span
-                                            class="text-[13px] px-1 min-w-[20px] min-h-[20px] rounded-full flex justify-center items-center"
+                                            class="text-[13px] px-1 min-w-[20px] min-h-[20px] rounded-full flex justify-center items-center <?php if($page==$i+1) echo 'bg-[#d8d8d8]' ?>"
                                             onclick="document.getElementById('page-product').value = <?= $i + 1 ?>; submitForm('form-product-search')"><?= $i + 1 ?></span>
                                     <?php endfor ?>
                                 </div>

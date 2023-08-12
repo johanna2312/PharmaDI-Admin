@@ -1,5 +1,5 @@
 <?php
-    require_once 'pdo.php';
+    require_once 'product-pdo.php';
     $product = new Product();
     $data = [
         'prodId' => $_POST['prodId'],
