@@ -8,6 +8,7 @@ $tag = new Tag();
 $tags = $tag->getData();
 $cate = new Category();
 $cates = $cate->getData();
+$listImg = [];
 
 $countries = json_decode(file_get_contents('https://restcountries.com/v3.1/all'));
 ?>
@@ -229,7 +230,8 @@ $countries = json_decode(file_get_contents('https://restcountries.com/v3.1/all')
                 <div class="flex">
                     <div onclick="getImage()" id="img"
                         class="w-[120px] mr-5 h-[120px] border border-dashed border-[#d8d8d8] rounded-[8px] mt-5 flex flex-col justify-center items-center cursor-pointer">
-                        <input type="file" name="fileUpload" id="image" style="display: none;" #inputUpload onchange="getImageInfo()">
+                        <input type="file" id="image" style="display: none;" #inputUpload onchange="getImageInfo()" multiple>
+                        <input type="hidden" name="prodImg" id="prodImg">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M12.5535 2.49392C12.4114 2.33852 12.2106 2.25 12 2.25C11.7894 2.25 11.5886 2.33852 11.4465 2.49392L7.44648 6.86892C7.16698 7.17462 7.18822 7.64902 7.49392 7.92852C7.79963 8.20802 8.27402 8.18678 8.55352 7.88108L11.25 4.9318V16C11.25 16.4142 11.5858 16.75 12 16.75C12.4142 16.75 12.75 16.4142 12.75 16V4.9318L15.4465 7.88108C15.726 8.18678 16.2004 8.20802 16.5061 7.92852C16.8118 7.64902 16.833 7.17462 16.5535 6.86892L12.5535 2.49392Z"
@@ -240,21 +242,9 @@ $countries = json_decode(file_get_contents('https://restcountries.com/v3.1/all')
                         </svg>
                         <span class="text-[13px]">Tải ảnh</span>
                     </div>
-                    <div id='imgContainer' class="w-[120px] mr-5 h-[120px] border border-dashed border-[#d8d8d8] rounded-[8px] mt-5 flex flex-col justify-center items-center cursor-pointer hidden"></div>
+                    <div id='imgContainer' class="mr-5 h-[120px] mt-5 flex justify-center items-center cursor-pointer"></div>
 
                 </div>
-                <!-- System detail -->
-                <!-- <div class="relative flex justify-between mt-5 w-full">
-                    <span class="text-[13px] absolute px-[5px] bg-white -top-[10px] left-[15px]">Chung</span>
-                    <textarea name="" id="" cols="30"
-                        class="h-[95px] overflow-hidden px-2.5 pl-[20px] py-[8px] w-[100%] border border-solid border-[#d8d8d8] rounded-[6px] outline-0 text-[13px] resize-none"
-                        readonly>Ngày tạo: 22/11/2022
-Ngày sửa: 22/11/2022
-Người tạo: Phạm Huyền My
-Người sửa: Phạm Huyền My
-                    </textarea> 
-                </div> -->
-                <!-- Button -->
                 <div class="justify-end flex mt-5">
                     <button type="submit" class="text-[12px] bg-[#15A5E3] text-white rounded-[6px] px-[14px] py-[7px]">Thêm mới</button>
                 </div>
@@ -265,10 +255,10 @@ Người sửa: Phạm Huyền My
 
 </html>
 <script>
+
     function showDroplist(id) {
         var dropList = document.getElementById(id);
         dropList.classList.toggle('hidden');
-        console.log(dropList.getElementsByTagName('span'))
     }
 
     function select(id, value, label) {
@@ -283,19 +273,23 @@ Người sửa: Phạm Huyền My
         file.click();
     }
 
+    list = []
+
     function getImageInfo(){
-        document.getElementById('imgName').innerHTML = file.files[0].name;
-        let fileReader = new FileReader();
-        fileReader.readAsDataURL(file.files[0])
-        fileReader.onload = (e) => {
-            console.log(e)
-            var img = document.createElement('img');
-            img.src = e.target.result
-            img.style.objectFit = 'cover'
-            img.style.maxWidth = '100%'
-            document.getElementById('imgContainer').appendChild(img)
-            document.getElementById('imgContainer').classList.toggle('hidden')
-            document.getElementById('img').classList.toggle('hidden')
+        for (let i = 0; i < (file.files.length <= 4 ? file.files.length : 4); i++) {
+            let fileReader = new FileReader();
+            fileReader.readAsDataURL(file.files[i])
+            fileReader.onload = (e) => {
+                var img = document.createElement('img');
+                img.src = e.target.result
+                list.push(e.target.result)
+                document.getElementById('prodImg').value = JSON.stringify({a: list})
+                console.log(JSON.stringify({a: list}))
+                img.style.objectFit = 'cover'
+                img.style.maxHeight = '100%'
+                img.style.marginRight = '20px'
+                document.getElementById('imgContainer').appendChild(img)
+            }
         }
     }
 </script>

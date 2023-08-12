@@ -4,12 +4,14 @@
 require_once "product-pdo.php";
 $product = new Product();
 $prod = $product->prodDetail($_GET['prodId']);
+$prodImg = $product->prodDetailImg($_GET['prodId']);
 $brand = new Brand();
 $brands = $brand->getData();
 $tag = new Tag();
 $tags = $tag->getData();
 $cate = new Category();
 $cates = $cate->getData();
+
 ?>
 
 <head>
@@ -181,34 +183,28 @@ $cates = $cate->getData();
                 </div>
                 <!-- Upload picture -->
                 <div class="flex">
-                    <div onclick="getImage()" id="img"
-                        class="w-[120px] mr-5 h-[120px] border border-dashed border-[#d8d8d8] rounded-[8px] mt-5 flex flex-col justify-center items-center cursor-pointer">
-                        <input type="file" name="fileUpload" id="image" style="display: none;" #inputUpload onchange="getImageInfo()">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M12.5535 2.49392C12.4114 2.33852 12.2106 2.25 12 2.25C11.7894 2.25 11.5886 2.33852 11.4465 2.49392L7.44648 6.86892C7.16698 7.17462 7.18822 7.64902 7.49392 7.92852C7.79963 8.20802 8.27402 8.18678 8.55352 7.88108L11.25 4.9318V16C11.25 16.4142 11.5858 16.75 12 16.75C12.4142 16.75 12.75 16.4142 12.75 16V4.9318L15.4465 7.88108C15.726 8.18678 16.2004 8.20802 16.5061 7.92852C16.8118 7.64902 16.833 7.17462 16.5535 6.86892L12.5535 2.49392Z"
-                                fill="#505050" />
-                            <path
-                                d="M3.75 15C3.75 14.5858 3.41422 14.25 3 14.25C2.58579 14.25 2.25 14.5858 2.25 15V15.0549C2.24998 16.4225 2.24996 17.5248 2.36652 18.3918C2.48754 19.2919 2.74643 20.0497 3.34835 20.6516C3.95027 21.2536 4.70814 21.5125 5.60825 21.6335C6.47522 21.75 7.57754 21.75 8.94513 21.75H15.0549C16.4225 21.75 17.5248 21.75 18.3918 21.6335C19.2919 21.5125 20.0497 21.2536 20.6517 20.6516C21.2536 20.0497 21.5125 19.2919 21.6335 18.3918C21.75 17.5248 21.75 16.4225 21.75 15.0549V15C21.75 14.5858 21.4142 14.25 21 14.25C20.5858 14.25 20.25 14.5858 20.25 15C20.25 16.4354 20.2484 17.4365 20.1469 18.1919C20.0482 18.9257 19.8678 19.3142 19.591 19.591C19.3142 19.8678 18.9257 20.0482 18.1919 20.1469C17.4365 20.2484 16.4354 20.25 15 20.25H9C7.56459 20.25 6.56347 20.2484 5.80812 20.1469C5.07435 20.0482 4.68577 19.8678 4.40901 19.591C4.13225 19.3142 3.9518 18.9257 3.85315 18.1919C3.75159 17.4365 3.75 16.4354 3.75 15Z"
-                                fill="#505050" />
-                        </svg>
-                        <span class="text-[13px]">Tải ảnh</span>
+                    <div id='imgContainer' class="mr-5 h-[150px]  mt-5 flex justify-center items-center">
+                    <?php foreach ($prodImg as $img): ?>
+                            <img src="<?= $img['imgPath']; ?>" alt="" class="max-h-full mr-[20px] object-cover rounded-[8px] p-[8px] border border-dashed border-[#d8d8d8]">
+                        <?php endforeach; ?>
                     </div>
-                    <div id='imgContainer' class="w-[120px] mr-5 h-[120px] border border-dashed border-[#d8d8d8] rounded-[8px] mt-5 flex flex-col justify-center items-center hidden"></div>
 
                 </div>
                 <!-- System detail -->
-                <!-- <div class="relative flex justify-between mt-5 w-full">
+                <div class="relative flex justify-between mt-5 w-full">
                     <span class="text-[13px] absolute px-[5px] bg-white -top-[10px] left-[15px]">Chung</span>
                     <textarea name="" id="" cols="30"
                         class="h-[95px] overflow-hidden px-2.5 pl-[20px] py-[8px] w-[100%] border border-solid border-[#d8d8d8] rounded-[6px] outline-0 text-[13px] resize-none"
-                        readonly>Ngày tạo: 22/11/2022
-Ngày sửa: 22/11/2022
-Người tạo: Phạm Huyền My
-Người sửa: Phạm Huyền My
+                        readonly>Ngày tạo: <?= $prod['prodCreatedDate']?>
+                        
+Ngày sửa: <?= $prod['prodLastUpdate']?>
+
+Người tạo: <?= $prod['prodCreatedUser']?>
+
+Người sửa: <?= $prod['prodLastUpdateUser']?>
                     </textarea> 
-                </div> -->
-                <!-- Button -->
+                </div>
+                <!-- Button
                 <div class="justify-end flex mt-5">
                     <button type="submit" class="text-[12px] bg-[#15A5E3] text-white rounded-[6px] px-[14px] py-[7px]">Thêm mới</button>
                 </div>
