@@ -85,7 +85,7 @@ $cates = $cate->getData();
                 <!-- Title -->
                 <div class="flex justify-between items-center py-[25px]">
                     <span class="text-[#0071AF] font-[600]">CHI TIẾT SẢN PHẨM</span>
-                    <button type="button" onclick="window.location.href='http://localhost/PharmaDI-Admin/product/product-edit.php'"
+                    <button type="button" onclick="window.location.href='http://localhost/PharmaDI-Admin/product/product-edit.php?prodId=<?= $prod['SKU'] ?>'"
                         class="border-[#15A5E3] border border-solid px-[12px] py-[5px] text-[13px] rounded-[8px] text-[#0071AF]">Chỉnh sửa</button>
                 </div>
                 <!-- Textbox -->
@@ -188,23 +188,8 @@ $cates = $cate->getData();
                             <img src="<?= $img['imgPath']; ?>" alt="" class="max-h-full mr-[20px] object-cover rounded-[8px] p-[8px] border border-dashed border-[#d8d8d8]">
                         <?php endforeach; ?>
                     </div>
-
                 </div>
-                <!-- System detail -->
-                <div class="relative flex justify-between mt-5 w-full">
-                    <span class="text-[13px] absolute px-[5px] bg-white -top-[10px] left-[15px]">Chung</span>
-                    <textarea name="" id="" cols="30"
-                        class="h-[95px] overflow-hidden px-2.5 pl-[20px] py-[8px] w-[100%] border border-solid border-[#d8d8d8] rounded-[6px] outline-0 text-[13px] resize-none"
-                        readonly>Ngày tạo: <?= $prod['prodCreatedDate']?>
-                        
-Ngày sửa: <?= $prod['prodLastUpdate']?>
-
-Người tạo: <?= $prod['prodCreatedUser']?>
-
-Người sửa: <?= $prod['prodLastUpdateUser']?>
-                    </textarea> 
-                </div>
-                <!-- Button
+                <!-- Button -->
                 <div class="justify-end flex mt-5">
                     <button type="submit" class="text-[12px] bg-[#15A5E3] text-white rounded-[6px] px-[14px] py-[7px]">Thêm mới</button>
                 </div>
