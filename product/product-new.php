@@ -87,7 +87,8 @@ $countries = json_decode(file_get_contents('https://restcountries.com/v3.1/all')
                 <div class="flex justify-between mt-1">
                     <div class="relative">
                         <span class="text-[13px] absolute px-[5px] bg-white -top-[10px] left-[15px]">Mã sản phẩm</span>
-                        <input type="text" name="prodId" class="px-2.5 pl-[20px] py-[8px] w-[280px] border border-solid border-[#d8d8d8] rounded-[6px] focus-within:border-[#0071AF] focus-within:border focus-within:border-solid outline-0 text-[13px]">
+                        <input type="text" name="prodId"
+                            class="px-2.5 pl-[20px] py-[8px] w-[280px] border border-solid border-[#d8d8d8] rounded-[6px] focus-within:border-[#0071AF] focus-within:border focus-within:border-solid outline-0 text-[13px]">
                     </div>
                     <div class="relative">
                         <span class="text-[13px] absolute px-[5px] bg-white -top-[10px] left-[15px]">Trạng thái</span>
@@ -100,7 +101,7 @@ $countries = json_decode(file_get_contents('https://restcountries.com/v3.1/all')
                     <div class="relative" onclick="showDroplist('cate-droplist')" id='product-cate'>
                         <span class="text-[13px] absolute px-[5px] bg-white -top-[10px] left-[15px]">Danh mục</span>
                         <input type="text" value="" class="hidden" name="prodCateId">
-                        <input type="text" 
+                        <input type="text"
                             class="cursor-pointer px-2.5 pl-[20px] py-[8px] w-[280px] border border-solid border-[#d8d8d8] rounded-[6px] focus-within:border-[#0071AF] focus-within:border focus-within:border-solid outline-0 text-[13px]"
                             readonly>
                         <svg class="absolute right-[10px] top-[11px]" width="15" height="15" viewBox="0 0 15 15"
@@ -112,7 +113,8 @@ $countries = json_decode(file_get_contents('https://restcountries.com/v3.1/all')
                         <div class="absolute flex flex-col bg-white z-10 w-full py-1 rounded-[6px] border border-[#d8d8d8] text-[13px] hidden max-h-[200px] overflow-y-scroll"
                             id="cate-droplist">
                             <?php foreach ($cates as $cate): ?>
-                                <span class="hover:bg-gray-100 px-[20px] py-[2px] text-[#505050]" onclick="select('product-cate', '<?=$cate['cateId']?>', '<?=$cate['cateName']?>')">
+                                <span class="hover:bg-gray-100 px-[20px] py-[2px] text-[#505050]"
+                                    onclick="select('product-cate', '<?= $cate['cateId'] ?>', '<?= $cate['cateName'] ?>')">
                                     <?= $cate['cateName'] ?>
                                 </span>
                             <?php endforeach; ?>
@@ -132,7 +134,8 @@ $countries = json_decode(file_get_contents('https://restcountries.com/v3.1/all')
                         <div class="absolute flex flex-col bg-white z-10 w-full py-1 rounded-[6px] border border-[#d8d8d8] text-[13px] hidden max-h-[200px] overflow-y-scroll"
                             id="tag-droplist">
                             <?php foreach ($tags as $tag): ?>
-                                <span class="hover:bg-gray-100 px-[20px] py-[2px] text-[#505050]" onclick="select('product-tag', '<?=$tag['tagId']?>', '<?=$tag['tagName']?>')">
+                                <span class="hover:bg-gray-100 px-[20px] py-[2px] text-[#505050]"
+                                    onclick="select('product-tag', '<?= $tag['tagId'] ?>', '<?= $tag['tagName'] ?>')">
                                     <?= $tag['tagName'] ?>
                                 </span>
                             <?php endforeach; ?>
@@ -141,7 +144,7 @@ $countries = json_decode(file_get_contents('https://restcountries.com/v3.1/all')
                 </div>
                 <div class="relative flex justify-between mt-5 w-full">
                     <span class="text-[13px] absolute px-[5px] bg-white -top-[10px] left-[15px]">Tên sản phẩm</span>
-                    <input type="text" name = "prodName"
+                    <input type="text" name="prodName"
                         class="px-2.5 pl-[20px] py-[8px] w-[100%] border border-solid border-[#d8d8d8] rounded-[6px] focus-within:border-[#0071AF] focus-within:border focus-within:border-solid outline-0 text-[13px]">
                 </div>
                 <div class="flex justify-between mt-5">
@@ -149,7 +152,7 @@ $countries = json_decode(file_get_contents('https://restcountries.com/v3.1/all')
                         <span
                             class="text-[13px] cursor-pointer absolute px-[5px] bg-white -top-[10px] left-[15px]">Thương
                             hiệu</span>
-                            <input type="text" value="" class="hidden" name="prodBrandId">
+                        <input type="text" value="" class="hidden" name="prodBrandId">
                         <input type="text" readonly
                             class="cursor-pointer px-2.5 pl-[20px] py-[8px] w-[280px] border border-solid border-[#d8d8d8] rounded-[6px] focus-within:border-[#0071AF] focus-within:border focus-within:border-solid outline-0 text-[13px]">
                         <svg class="absolute right-[10px] top-[11px]" width="15" height="15" viewBox="0 0 15 15"
@@ -161,7 +164,8 @@ $countries = json_decode(file_get_contents('https://restcountries.com/v3.1/all')
                         <div class="absolute flex flex-col bg-white z-10 w-full py-1 rounded-[6px] border border-[#d8d8d8] text-[13px] hidden max-h-[200px] overflow-y-scroll"
                             id="brand-droplist">
                             <?php foreach ($brands as $brand): ?>
-                                <span class="hover:bg-gray-100 px-[20px] py-[2px] text-[#505050]" onclick="select('product-brand', '<?=$brand['brandId']?>', '<?=$brand['brandName']?>')">
+                                <span class="hover:bg-gray-100 px-[20px] py-[2px] text-[#505050]"
+                                    onclick="select('product-brand', '<?= $brand['brandId'] ?>', '<?= $brand['brandName'] ?>')">
                                     <?= $brand['brandName'] ?>
                                 </span>
                             <?php endforeach; ?>
@@ -180,14 +184,16 @@ $countries = json_decode(file_get_contents('https://restcountries.com/v3.1/all')
                         <div class="absolute flex flex-col bg-white z-10 w-full py-1 rounded-[6px] border border-[#d8d8d8] text-[13px] hidden max-h-[200px] overflow-y-scroll"
                             id="country-droplist">
                             <?php foreach ($countries as $country): ?>
-                                <span class="hover:bg-gray-100 px-[20px] py-[2px] text-[#505050]" onclick="select('product-country', '<?= $country->{'name'}->{'common'} ?>' )"><?= $country->{'name'}->{'common'} ?></span>
+                                <span class="hover:bg-gray-100 px-[20px] py-[2px] text-[#505050]"
+                                    onclick="select('product-country', '<?= $country->{'name'}->{'common'} ?>' )"><?= $country->{'name'}->{'common'} ?></span>
                             <?php endforeach; ?>
                         </div>
 
                     </div>
                     <div class="relative">
                         <span class="text-[13px] absolute px-[5px] bg-white -top-[10px] left-[15px]">Đơn vị</span>
-                        <input type="text" name="prodUnit" class="px-2.5 pl-[20px] py-[8px] w-[280px] border border-solid border-[#d8d8d8] rounded-[6px] focus-within:border-[#0071AF] focus-within:border focus-within:border-solid outline-0 text-[13px]">
+                        <input type="text" name="prodUnit"
+                            class="px-2.5 pl-[20px] py-[8px] w-[280px] border border-solid border-[#d8d8d8] rounded-[6px] focus-within:border-[#0071AF] focus-within:border focus-within:border-solid outline-0 text-[13px]">
                     </div>
                     <div class="relative">
                         <span class="text-[13px] absolute px-[5px] bg-white -top-[10px] left-[15px]">Đã bán</span>
@@ -199,11 +205,14 @@ $countries = json_decode(file_get_contents('https://restcountries.com/v3.1/all')
                 <div class="flex items-center justify-between">
                     <div class="relative flex mt-5">
                         <span class="text-[13px] absolute px-[5px] bg-white -top-[10px] left-[15px]">Giá gốc</span>
-                        <input type="text" name="prodPrice" class="px-2.5 pl-[20px] py-[8px] w-[605px] border border-solid border-[#d8d8d8] rounded-[6px] focus-within:border-[#0071AF] focus-within:border focus-within:border-solid outline-0 text-[13px]">                
+                        <input type="text" name="prodPrice"
+                            class="px-2.5 pl-[20px] py-[8px] w-[605px] border border-solid border-[#d8d8d8] rounded-[6px] focus-within:border-[#0071AF] focus-within:border focus-within:border-solid outline-0 text-[13px]">
                     </div>
                     <div class="relative flex mt-5">
-                        <span class="text-[13px] absolute px-[5px] bg-white -top-[10px] left-[15px]">Giá khuyến mãi</span>
-                        <input type="text" name="prodPriceSale" class="px-2.5 pl-[20px] py-[8px] w-[605px] border border-solid border-[#d8d8d8] rounded-[6px] focus-within:border-[#0071AF] focus-within:border focus-within:border-solid outline-0 text-[13px]">                
+                        <span class="text-[13px] absolute px-[5px] bg-white -top-[10px] left-[15px]">Giá khuyến
+                            mãi</span>
+                        <input type="text" name="prodPriceSale"
+                            class="px-2.5 pl-[20px] py-[8px] w-[605px] border border-solid border-[#d8d8d8] rounded-[6px] focus-within:border-[#0071AF] focus-within:border focus-within:border-solid outline-0 text-[13px]">
                     </div>
                 </div>
                 <div class="relative flex justify-between mt-5 w-full">
@@ -230,7 +239,8 @@ $countries = json_decode(file_get_contents('https://restcountries.com/v3.1/all')
                 <div class="flex">
                     <div onclick="getImage()" id="img"
                         class="w-[120px] mr-5 h-[120px] border border-dashed border-[#d8d8d8] rounded-[8px] mt-5 flex flex-col justify-center items-center cursor-pointer">
-                        <input type="file" id="image" style="display: none;" #inputUpload onchange="getImageInfo()" multiple>
+                        <input type="file" id="image" style="display: none;" #inputUpload onchange="getImageInfo()"
+                            multiple>
                         <input type="hidden" name="prodImg" id="prodImg">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -242,15 +252,18 @@ $countries = json_decode(file_get_contents('https://restcountries.com/v3.1/all')
                         </svg>
                         <span class="text-[13px]">Tải ảnh</span>
                     </div>
-                    <div id='imgContainer' class="mr-5 h-[120px] mt-5 flex justify-center items-center cursor-pointer"></div>
+                    <div id='imgContainer' class="mr-5 h-[120px] mt-5 flex justify-center items-center cursor-pointer">
+                    </div>
 
                 </div>
                 <div class="justify-end flex mt-5">
-                    <button type="submit" class="text-[12px] bg-[#15A5E3] text-white rounded-[6px] px-[14px] py-[7px]">Thêm mới</button>
+                    <button type="submit"
+                        class="text-[12px] bg-[#15A5E3] text-white rounded-[6px] px-[14px] py-[7px]">Thêm mới</button>
                 </div>
             </div>
         </form>
     </div>
+
 </body>
 
 </html>
@@ -269,13 +282,13 @@ $countries = json_decode(file_get_contents('https://restcountries.com/v3.1/all')
 
     var file = document.getElementById('image');
 
-    function getImage(){
+    function getImage() {
         file.click();
     }
 
     list = []
 
-    function getImageInfo(){
+    function getImageInfo() {
         for (let i = 0; i < (file.files.length <= 4 ? file.files.length : 4); i++) {
             let fileReader = new FileReader();
             fileReader.readAsDataURL(file.files[i])
@@ -283,8 +296,8 @@ $countries = json_decode(file_get_contents('https://restcountries.com/v3.1/all')
                 var img = document.createElement('img');
                 img.src = e.target.result
                 list.push(e.target.result)
-                document.getElementById('prodImg').value = JSON.stringify({a: list})
-                console.log(JSON.stringify({a: list}))
+                document.getElementById('prodImg').value = JSON.stringify({ a: list })
+                console.log(JSON.stringify({ a: list }))
                 img.style.objectFit = 'cover'
                 img.style.maxHeight = '100%'
                 img.style.marginRight = '20px'

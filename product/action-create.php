@@ -18,8 +18,10 @@
         'prodPriceSale'	=> $_POST['prodPriceSale'],
         'prodSellNumber' => $_POST['prodSellNumber']
     ];
-    $listImg = json_decode($_POST['prodImg'])->{'a'};
     $product->createNewProduct($data);
-    $product->insertImg($listImg, $data['prodId']);
+    if(isset($_POST['prodImg'])){
+        $listImg = json_decode($_POST['prodImg'])->{'a'};
+        $product->insertImg($listImg, $data['prodId']);
+    }
     header("Location: http://localhost/PharmaDI-Admin/product/product-list.php");
 ?>

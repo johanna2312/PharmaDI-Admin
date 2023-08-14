@@ -18,10 +18,10 @@
         'prodPriceSale'	=> $_POST['prodPriceSale'],
         'prodSellNumber' => $_POST['prodSellNumber']
     ];
-    $listImg = json_decode($_POST['prodImg'])->{'a'};
-    $listDeleteImg = json_decode($_POST['prodDeleteImg'])->{'delete'};
-    print_r($listDeleteImg);
-    // $product->createNewProduct($data);
-    // $product->insertImg($listImg, $data['prodId']);
-    // header("Location: http://localhost/PharmaDI-Admin/product/product-list.php");
+    if(isset($_POST['prodImg'])){
+        $listImg = json_decode($_POST['prodImg'])->{'a'};
+        $product->prodUpdateImg($listImg, $data['prodId']);
+    }
+    $product->prodUpdate($data);
+    header("Location: http://localhost/PharmaDI-Admin/product/product-list.php");
 ?>

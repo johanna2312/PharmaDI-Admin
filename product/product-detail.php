@@ -121,7 +121,7 @@ $cates = $cate->getData();
                 </div>
                 <div class="relative flex justify-between mt-5 w-full">
                     <span class="text-[13px] absolute px-[5px] bg-white -top-[10px] left-[15px]">Tên sản phẩm</span>
-                    <input type="text" name = "prodName" value="<?= $prod['prodName']?>"
+                    <input type="text" name = "prodName" value="<?= $prod['prodName']?>" readonly
                         class="px-2.5 pl-[20px] py-[8px] w-[100%] border border-solid border-[#d8d8d8] rounded-[6px]  outline-0 text-[13px]">
                 </div>
                 <div class="flex justify-between mt-5">
@@ -142,7 +142,7 @@ $cates = $cate->getData();
                     </div>
                     <div class="relative">
                         <span class="text-[13px] absolute px-[5px] bg-white -top-[10px] left-[15px]">Đơn vị</span>
-                        <input value="<?= $prod['prodUnit']?>" type="text" name="prodUnit" class="px-2.5 pl-[20px] py-[8px] w-[280px] border border-solid border-[#d8d8d8] rounded-[6px]  outline-0 text-[13px]">
+                        <input readonly value="<?= $prod['prodUnit']?>" type="text" name="prodUnit" class="px-2.5 pl-[20px] py-[8px] w-[280px] border border-solid border-[#d8d8d8] rounded-[6px]  outline-0 text-[13px]">
                     </div>
                     <div class="relative">
                         <span class="text-[13px] absolute px-[5px] bg-white -top-[10px] left-[15px]">Đã bán</span>
@@ -154,11 +154,11 @@ $cates = $cate->getData();
                 <div class="flex items-center justify-between">
                     <div class="relative flex mt-5">
                         <span class="text-[13px] absolute px-[5px] bg-white -top-[10px] left-[15px]">Giá gốc</span>
-                        <input value="<?= $prod['prodPrice']?>" type="text" name="prodPrice" class="px-2.5 pl-[20px] py-[8px] w-[605px] border border-solid border-[#d8d8d8] rounded-[6px]  outline-0 text-[13px]">                
+                        <input readonly value="<?= $prod['prodPrice']?>" type="text" name="prodPrice" class="px-2.5 pl-[20px] py-[8px] w-[605px] border border-solid border-[#d8d8d8] rounded-[6px]  outline-0 text-[13px]">                
                     </div>
                     <div class="relative flex mt-5">
                         <span class="text-[13px] absolute px-[5px] bg-white -top-[10px] left-[15px]">Giá khuyến mãi</span>
-                        <input value="<?= $prod['prodPriceSale']?>" type="text" name="prodPriceSale" class="px-2.5 pl-[20px] py-[8px] w-[605px] border border-solid border-[#d8d8d8] rounded-[6px]  outline-0 text-[13px]">                
+                        <input readonly value="<?= $prod['prodPriceSale']?>" type="text" name="prodPriceSale" class="px-2.5 pl-[20px] py-[8px] w-[605px] border border-solid border-[#d8d8d8] rounded-[6px]  outline-0 text-[13px]">                
                     </div>
                 </div>
                 <div class="relative flex justify-between mt-5 w-full">
@@ -188,10 +188,6 @@ $cates = $cate->getData();
                             <img src="<?= $img['imgPath']; ?>" alt="" class="max-h-full mr-[20px] object-cover rounded-[8px] p-[8px] border border-dashed border-[#d8d8d8]">
                         <?php endforeach; ?>
                     </div>
-                </div>
-                <!-- Button -->
-                <div class="justify-end flex mt-5">
-                    <button type="submit" class="text-[12px] bg-[#15A5E3] text-white rounded-[6px] px-[14px] py-[7px]">Thêm mới</button>
                 </div>
             </div>
         </form>

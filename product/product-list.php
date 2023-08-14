@@ -179,7 +179,7 @@ if (count($products) <= ($page - 1) * $pageSize) {
                             <span class="text-[13px] truncate">
                                 <?= $prod['prodCreatedDate'] ?>
                             </span>
-                            <span class="text-[13px] truncate">
+                            <span class="text-[13px] overflow-x-hidden whitespace-nowrap w-[75px]">
                                 <?= $prod['prodLastUpdate'] ?>
                             </span>
                             <span class="text-[13px] truncate max-w-[100px]">

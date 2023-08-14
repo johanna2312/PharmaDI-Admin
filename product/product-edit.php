@@ -36,6 +36,16 @@ $listDeleteImg = [];
 </head>
 
 <body>
+    <div class="bg-[#505050] bg-opacity-[40%] h-[100vh] w-[100vw] fixed z-10 flex flex-col justify-center items-center hidden" id="popupCf">
+        <div class="bg-white absolute p-[40px] flex flex-col justify-center rounded-[8px]">
+            <span class="text-[#0071AF] text-[18px] font-[600] mb-2 flex justify-center">XOÁ SẢN PHẨM ĐÃ CHỌN?</span>
+            <span class="text-[#505050] text-[13px] mb-4 flex justify-center">Bạn chắc chắn muốn xoá sản phẩm đã chọn?</span>
+            <div class="flex justify-center">
+                <button class="bg-white border border-solid text-[13px] border-[#d8d8d8] rounded-[8px] mr-4 py-[8px] px-[12px] " onclick="document.getElementById('popupCf').classList.toggle('hidden')">Huỷ bỏ</button>
+                <button class="bg-[#0071AF] text-white border border-solid text-[13px] border-[#d8d8d8] rounded-[8px] py-[8px] px-[12px]" onclick="window.location.href='http://localhost/PharmaDI-Admin/product/action-delete.php?prodId=<?= $prod['SKU'] ?>'"">Xác nhận</button>
+            </div>
+        </div>
+    </div>
     <div class="flex justify-between">
         <div class="menu bg-[#0071AF] w-[13%] max-h"></div>
         <form class="w-[87%]" method="POST" action="action-edit.php">
@@ -94,7 +104,13 @@ $listDeleteImg = [];
                     <span class="text-[#0071AF] px-1 font-[600]"> Chỉnh sửa sản phẩm</span>
                 </div>
                 <!-- Title -->
-                <span class="text-[19px] font-[600] text-[#0071AF] py-[20px]"> CHỈNH SỬA SẢN PHẨM</span>
+                <div class="flex justify-between items-center py-[25px]">
+                    <span class="text-[#0071AF] font-[600]">CHỈNH SỬA SẢN PHẨM</span>
+                    <button type="button"
+                        class="border-[#15A5E3] border border-solid px-[12px] py-[5px] text-[13px] rounded-[8px] text-[#0071AF]"
+                        onclick="document.getElementById('popupCf').classList.toggle('hidden')">Xoá
+                        sản phẩm</button>
+                </div>
                 <!-- Textbox -->
                 <div class="flex justify-between mt-1">
                     <div class="relative">
@@ -131,8 +147,7 @@ $listDeleteImg = [];
                         foreach ($cates as $cate)
                             if ($prod['cateId'] == $cate['cateId'])
                                 echo $cate['cateName'];
-                        ?>"
-                            class="cursor-pointer px-2.5 pl-[20px] py-[8px] w-[280px] border border-solid border-[#d8d8d8] rounded-[6px] focus-within:border-[#0071AF] focus-within:border focus-within:border-solid outline-0 text-[13px]"
+                        ?>" class="cursor-pointer px-2.5 pl-[20px] py-[8px] w-[280px] border border-solid border-[#d8d8d8] rounded-[6px] focus-within:border-[#0071AF] focus-within:border focus-within:border-solid outline-0 text-[13px]"
                             readonly>
                         <svg class="absolute right-[10px] top-[11px]" width="15" height="15" viewBox="0 0 15 15"
                             fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -295,11 +310,13 @@ $listDeleteImg = [];
                     </div>
                     <div id='imgContainer' class="flex mr-5 h-[120px] mt-5 justify-center items-center ">
                         <input type="hidden" name="prodDeleteImg" id="prodDeleteImg">
-                        <?php foreach ($prodImg as $index=>$img): ?>
-                            <div class=" flex h-full cursor-pointer relative" id="<?= $index."prodImg" ?>">
+                        <?php foreach ($prodImg as $index => $img): ?>
+                            <div class=" flex h-full cursor-pointer relative" id="<?= $index . "prodImg" ?>">
                                 <img src="<?= $img['imgPath']; ?>" alt=""
                                     class="max-h-full mr-[20px] object-cover rounded-[8px] p-[8px]">
-                                <svg onclick="deleteImg('<?= $img['imgPath']; ?>', '<?= $index."prodImg" ?>')" class="absolute top-3 right-7" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg onclick="deleteImg('<?= $img['imgPath']; ?>', '<?= $index . "prodImg" ?>')"
+                                    class="absolute top-3 right-7" width="15" height="15" viewBox="0 0 15 15" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
                                     <rect width="15" height="15" rx="7.5" fill="white" />
                                     <path
                                         d="M10.0412 5.62174C10.2242 5.43868 10.2242 5.14189 10.0412 4.95883C9.8581 4.77577 9.5613 4.77577 9.37824 4.95883L7.49999 6.83708L5.62175 4.95883C5.43869 4.77577 5.14189 4.77577 4.95883 4.95883C4.77577 5.14189 4.77577 5.43868 4.95883 5.62174L6.83708 7.49999L4.95883 9.37824C4.77577 9.5613 4.77577 9.8581 4.95883 10.0412C5.14189 10.2242 5.43868 10.2242 5.62174 10.0412L7.49999 8.1629L9.37825 10.0412C9.56131 10.2242 9.8581 10.2242 10.0412 10.0412C10.2242 9.8581 10.2242 9.5613 10.0412 9.37824L8.16291 7.49999L10.0412 5.62174Z"
@@ -343,7 +360,7 @@ $listDeleteImg = [];
     list = []
     listDeleteImg = []
 
-    function deleteImg(imgPath, index){
+    function deleteImg(imgPath, index) {
         listDeleteImg.push(imgPath);
         document.getElementById('prodDeleteImg').value = JSON.stringify({ delete: listDeleteImg })
         document.getElementById(index).remove()
