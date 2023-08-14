@@ -38,7 +38,7 @@ $listDeleteImg = [];
 <body>
     <div class="flex justify-between">
         <div class="menu bg-[#0071AF] w-[13%] max-h"></div>
-        <form class="w-[87%]" method="POST" action="action-create.php">
+        <form class="w-[87%]" method="POST" action="action-edit.php">
             <!-- Menu -->
             <div
                 class="flex justify-between items-center w-full border-solid border-[#d8d8d8] border pb-2.5 pt-2 shadow-md">
@@ -104,7 +104,7 @@ $listDeleteImg = [];
                     </div>
                     <div class="relative" onclick="showDroplist('status-droplist')" id='status-prod'>
                         <span class="text-[13px] absolute px-[5px] bg-white -top-[10px] left-[15px]">Trạng thái</span>
-                        <input type="text" value="<?= $prod['prodStatus'] ?>" class="hidden" name="search-status">
+                        <input type="text" value="<?= $prod['prodStatus'] ?>" class="hidden" name="prodStatus">
                         <input type="text" readonly
                             value="<?= $prod['prodStatus'] == 1 ? "Đã duyệt" : ($prod['prodStatus'] == 0 ? "Chờ duyệt" : "Không duyệt") ?>"
                             class="cursor-pointer px-2.5 pl-[20px] py-[8px] w-[280px] border border-solid border-[#d8d8d8] rounded-[6px] focus-within:border focus-within:border-solid focus-within:border-[#0071AF] outline-0 text-[13px]">
@@ -313,7 +313,7 @@ $listDeleteImg = [];
                 </div>
                 <div class="justify-end flex mt-5">
                     <button type="submit"
-                        class="text-[12px] bg-[#15A5E3] text-white rounded-[6px] px-[14px] py-[7px]">Thêm mới</button>
+                        class="text-[12px] bg-[#15A5E3] text-white rounded-[6px] px-[14px] py-[7px]">Chỉnh sửa</button>
                 </div>
             </div>
         </form>
