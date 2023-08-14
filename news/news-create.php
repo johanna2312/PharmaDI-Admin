@@ -99,7 +99,7 @@
                 <div class="relative flex justify-between mt-5 w-full">
                     <span class="text-[13px] absolute px-[5px] bg-white -top-[10px] left-[15px]">Nội dung</span>
                     <textarea name="newsContent" id="" cols="30"
-                        class="max-h min-h-[200px] overflow-hidden px-2.5 pl-[20px] py-[10px] w-[100%] border border-solid border-[#d8d8d8] rounded-[6px] outline-0 text-[13px] resize-none"></textarea>
+                        class="max-h min-h-[300px] overflow-y-scroll px-2.5 pl-[20px] py-[10px] w-[100%] border border-solid border-[#d8d8d8] rounded-[6px] outline-0 text-[13px] resize-none"></textarea>
                 </div>
                 <!-- Button -->
                 <div class="justify-end flex mt-5">
