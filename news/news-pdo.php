@@ -24,4 +24,9 @@ class News extends Connection
         $select = $this->prepareSQL($sql);
         $select->execute($data);
     }
+    public function newsDelete($id){
+        $sql = "DELETE FROM news WHERE newsId = '$id';";
+        $select = $this->prepareSQL($sql);
+        $select->execute();
+    }
 }

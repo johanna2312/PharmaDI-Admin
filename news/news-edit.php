@@ -25,7 +25,7 @@ $newsArray = $news->newsDetail($_GET['newsId']);
 
 <body>
     <div class="bg-[#505050] bg-opacity-[40%] h-[100vh] w-[100vw] fixed z-10 flex flex-col justify-center items-center hidden"
-        id="popupCf">
+        id="popupDlt">
         <div class="bg-white absolute p-[40px] flex flex-col justify-center rounded-[8px]">
             <span class="text-[#0071AF] text-[18px] font-[600] mb-2 flex justify-center">XOÁ TIN TỨC ĐÃ CHỌN?</span>
             <span class="text-[#505050] text-[13px] mb-4 flex justify-center">Bạn chắc chắn muốn xoá tin tức đã
@@ -33,7 +33,7 @@ $newsArray = $news->newsDetail($_GET['newsId']);
             <div class="flex justify-center">
                 <button
                     class="bg-white border border-solid text-[13px] border-[#d8d8d8] rounded-[8px] mr-4 py-[8px] px-[12px] "
-                    onclick="document.getElementById('popupCf').classList.toggle('hidden')">Huỷ bỏ</button>
+                    onclick="document.getElementById('popupDlt').classList.toggle('hidden')">Huỷ bỏ</button>
                 <button
                     class="bg-[#0071AF] text-white border border-solid text-[13px] border-[#d8d8d8] rounded-[8px] py-[8px] px-[12px]"
                     onclick="window.location.href='http://localhost/PharmaDI-Admin/news/action-delete.php?newsId=<?= $newsArray['newsId'] ?>'">Xác
@@ -80,7 +80,7 @@ $newsArray = $news->newsDetail($_GET['newsId']);
             <div class="flex flex-col px-[40px] py-[20px] text-[#505050]">
                 <!-- Breadscumb -->
                 <div class="flex items-center text-[14px]">
-                    <span class="px-1">Danh sách tin tức</span>
+                    <span class="px-1 cursor-pointer" onclick="window.location.href='http://localhost/PharmaDI-Admin/news/news-list.php'">Danh sách tin tức</span>
                     <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd"
                             d="M1.09327 0.692102C1.35535 0.467463 1.74991 0.497814 1.97455 0.759893L6.97455 6.59323C7.17517 6.82728 7.17517 7.17266 6.97455 7.40672L1.97455 13.24C1.74991 13.5021 1.35535 13.5325 1.09327 13.3078C0.831188 13.0832 0.800837 12.6886 1.02548 12.4266L5.67684 6.99997L1.02548 1.57338C0.800837 1.3113 0.831188 0.916741 1.09327 0.692102Z"
@@ -89,7 +89,11 @@ $newsArray = $news->newsDetail($_GET['newsId']);
                     <span class="text-[#0071AF] px-1 font-[600]">Chỉnh sửa tin tức</span>
                 </div>
                 <!-- Title -->
-                <span class="text-[19px] font-[600] text-[#0071AF] py-[20px]">CHỈNH SỬA TIN TỨC</span>
+                <div class="flex justify-between items-center py-[25px]">
+                    <span class="text-[#0071AF] font-[600]">CHỈNH SỬA TIN TỨC</span>
+                    <button type="button"
+                        class="border-[#15A5E3] border border-solid px-[12px] py-[5px] text-[13px] rounded-[8px] text-[#0071AF]" onclick="document.getElementById('popupDlt').classList.toggle('hidden')">Xoá tin tức</button>
+                </div>
                 <!-- Textbox -->
                 <div class="flex justify-between mt-1 items-center max-h-[40px]">
                     <div class="relative">
