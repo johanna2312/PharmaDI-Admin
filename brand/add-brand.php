@@ -66,7 +66,7 @@ require_once "pdo.php";
         })
         .then(response => response.json())
         .then(result => {
-            // Xử lý kết quả từ máy chủ (nếu cần)....
+            // Xử lý kết quả từ máy chủ (nếu cần)..
             console.log(result);
             // Cập nhật dữ liệu trên trang web (nếu cần)
         })
