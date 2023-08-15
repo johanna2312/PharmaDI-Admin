@@ -103,7 +103,7 @@ $newsArray = $news->newsDetail($_GET['newsId']);
                     </div>
                     <div class="relative">
                         <input type="file" id="image" class="hidden" #inputUpload onchange="getImageInfo()">
-                        <input name="newsData" id="newsData" class="hidden">
+                        <input name="newsData" id="newsData" class="hidden" value="<?= $newsArray['newsImage']?>">
                         <input name="newsImgTitle" id="newsImgTitle" class="hidden">
                         <button type="button"
                             class="flex relative cursor-pointer border border-solid rounded-[6px] border-[#d8d8d8] px-2.5 pl-[20px] py-[10px] w-[350px] h-[40px]"
