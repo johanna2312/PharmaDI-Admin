@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<?php 
+require "news-pdo.php";
+$news = new News();
+$newsArray = $news->newsDetail($_GET['newsId']);
+?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,17 +24,24 @@
 </head>
 
 <body>
-<div class="bg-[#505050] bg-opacity-[40%] h-[100vh] w-[100vw] fixed z-10 flex flex-col justify-center items-center hidden" id="popupCf">
+    <div class="bg-[#505050] bg-opacity-[40%] h-[100vh] w-[100vw] fixed z-10 flex flex-col justify-center items-center hidden"
+        id="popupCf">
         <div class="bg-white absolute p-[40px] flex flex-col justify-center rounded-[8px]">
             <span class="text-[#0071AF] text-[18px] font-[600] mb-2 flex justify-center">XOÁ TIN TỨC ĐÃ CHỌN?</span>
-            <span class="text-[#505050] text-[13px] mb-4 flex justify-center">Bạn chắc chắn muốn xoá tin tức đã chọn?</span>
+            <span class="text-[#505050] text-[13px] mb-4 flex justify-center">Bạn chắc chắn muốn xoá tin tức đã
+                chọn?</span>
             <div class="flex justify-center">
-                <button class="bg-white border border-solid text-[13px] border-[#d8d8d8] rounded-[8px] mr-4 py-[8px] px-[12px] " onclick="document.getElementById('popupCf').classList.toggle('hidden')">Huỷ bỏ</button>
-                <button class="bg-[#0071AF] text-white border border-solid text-[13px] border-[#d8d8d8] rounded-[8px] py-[8px] px-[12px]" onclick="window.location.href='http://localhost/PharmaDI-Admin/news/action-delete.php?newsId=<?= $news['newsId'] ?>'">Xác nhận</button>
+                <button
+                    class="bg-white border border-solid text-[13px] border-[#d8d8d8] rounded-[8px] mr-4 py-[8px] px-[12px] "
+                    onclick="document.getElementById('popupCf').classList.toggle('hidden')">Huỷ bỏ</button>
+                <button
+                    class="bg-[#0071AF] text-white border border-solid text-[13px] border-[#d8d8d8] rounded-[8px] py-[8px] px-[12px]"
+                    onclick="window.location.href='http://localhost/PharmaDI-Admin/news/action-delete.php?newsId=<?= $newsArray['newsId'] ?>'">Xác
+                    nhận</button>
             </div>
         </div>
     </div>
-    <form class="flex justify-between" action="action-create.php" method="POST">
+    <form class="flex justify-between" action="action-edit.php?newsId=<?=$_GET['newsId']?>" method="POST">
         <div class="menu bg-[#0071AF] w-[13%] max-h min-h-[750px]">a</div>
         <div class="w-[87%]">
             <!-- Menu -->
@@ -83,19 +94,18 @@
                 <div class="flex justify-between mt-1 items-center max-h-[40px]">
                     <div class="relative">
                         <span class="text-[13px] absolute px-[5px] bg-white -top-[10px] left-[15px]">Tiêu đề</span>
-                        <input type="text" name="newsTitle"
+                        <input type="text" name="newsTitle" value="<?= $newsArray['newsTitle']?>"
                             class="px-2.5 pl-[20px] py-[10px] w-[850px] border border-solid border-[#d8d8d8] rounded-[6px] focus-within:border-[#0071AF] focus-within:border focus-within:border-solid outline-0 text-[13px] h-[40px]">
                     </div>
                     <div class="relative">
-                        <input type="file" id="image" class="hidden" #inputUpload
-                            onchange="getImageInfo()">
+                        <input type="file" id="image" class="hidden" #inputUpload onchange="getImageInfo()">
                         <input name="newsData" id="newsData" class="hidden">
                         <input name="newsImgTitle" id="newsImgTitle" class="hidden">
                         <button type="button"
                             class="flex relative cursor-pointer border border-solid rounded-[6px] border-[#d8d8d8] px-2.5 pl-[20px] py-[10px] w-[350px] h-[40px]"
                             onclick="getImage()">
                             <span class="text-[13px] absolute px-[5px] bg-white -top-[10px] left-[15px]">Ảnh</span>
-                            <span id="imgName" class="absolute text-[12px] top-2.5 truncate max-w-[300px]"></span>
+                            <span id="imgName" class="absolute text-[12px] top-2.5 truncate max-w-[300px]"><?= $newsArray['newsImgTitle'] ?></span>
                             <svg class="absolute right-2 top-2" width="16" height="16" viewBox="0 0 20 20" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -109,7 +119,7 @@
                 <div class="relative flex justify-between mt-5 w-full">
                     <span class="text-[13px] absolute px-[5px] bg-white -top-[10px] left-[15px]">Nội dung</span>
                     <textarea name="newsContent" id="" cols="30"
-                        class="max-h min-h-[300px] overflow-y-scroll px-2.5 pl-[20px] py-[10px] w-[100%] border border-solid border-[#d8d8d8] rounded-[6px] outline-0 text-[13px] resize-none"></textarea>
+                        class="max-h min-h-[300px] overflow-y-scroll px-2.5 pl-[20px] py-[10px] w-[100%] border border-solid border-[#d8d8d8] rounded-[6px] outline-0 text-[13px] resize-none"><?=$newsArray['newsContent']?></textarea>
                 </div>
                 <!-- Button -->
                 <div class="justify-end flex mt-5">

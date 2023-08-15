@@ -1,9 +1,9 @@
 <?php
 require_once "news-pdo.php";
 $news = new News();
-if(isset($_GET['search-newsTitle']))
+if (isset($_GET['search-newsTitle']))
     $newsArray = $news->getData($_GET['search-newsTitle']);
-else{
+else {
     $newsArray = $news->getData(null);
 }
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
@@ -98,51 +98,67 @@ $pageSize = isset($_GET['pageSize']) ? $_GET['pageSize'] : 10;
                 <div class="w-full flex justify-between">
                     <div class="relative w-full mx-10">
                         <span class="text-[13px] absolute left-[15px] -top-[10px] bg-white px-1.5">Tiêu đề</span>
-                        <input type="text" name="search-newsTitle" value="<?= isset($_GET['search-newsTitle']) ? $_GET['search-newsTitle'] : null?>"
+                        <input type="text" name="search-newsTitle"
+                            value="<?= isset($_GET['search-newsTitle']) ? $_GET['search-newsTitle'] : null ?>"
                             class="border-solid px-4 py-1.5 border-[#d8d8d8] border rounded-[6px] w-full focus-within:border-[#0071AF] focus-within:border focus-within:border-solid outline-0 text-[13px]">
                     </div>
                     <button type="submit"
-                        class="rounded-[6px] bg-[#0071AF] px-[16px] py-[7px] text-[13px] text-white mr-10 min-w-max">Tìm kiếm</button>
+                        class="rounded-[6px] bg-[#0071AF] px-[16px] py-[7px] text-[13px] text-white mr-10 min-w-max">Tìm
+                        kiếm</button>
                 </div>
             </div>
             <div class="flex flex-col px-[50px] py-[25px]">
                 <div class="flex justify-between items-center">
                     <span class="text-[#0071AF] font-[600]">DANH SÁCH TIN TỨC</span>
-                    <button type="button" onclick="window.location.href='http://localhost/PharmaDI-Admin/news/news-create.php'"
+                    <button type="button"
+                        onclick="window.location.href='http://localhost/PharmaDI-Admin/news/news-create.php'"
                         class="border-[#15A5E3] border border-solid px-[12px] py-[5px] text-[13px] rounded-[8px] text-[#0071AF]">Thêm
                         mới</button>
                 </div>
                 <div class="mt-[20px] text-[#505050]">
-                    <div class="grid grid-cols-9 border-b pb-2">
+                    <div class="grid grid-cols-8 border-b pb-2">
                         <span class="text-[13px] font-[600]">STT</span>
                         <span class="text-[13px] font-[600]">Mã tin tức</span>
                         <span class="text-[13px] col-span-4 font-[600]">Tiêu đề tin tức</span>
                         <span class="text-[13px] font-[600]">Ngày đăng</span>
                         <span class="text-[13px] font-[600]">Ngày sửa</span>
-                        <span class="text-[13px] font-[600]">Hành động</span>
                     </div>
                     <?php
-                    $i = ($page - 1) * $pageSize ;
+                    $i = ($page - 1) * $pageSize;
                     foreach (array_slice($newsArray, ($page - 1) * $pageSize, $pageSize) as $news): ?>
-                        <div class="grid grid-cols-9 py-[15px] border-b cursor-pointer" onclick="window.location.href = 'http://localhost/PharmaDI-Admin/news/news-detail.php?newsId=<?= $news['newsId'] ?>'" >
-                            <span class="text-[13px] truncate "><?= $i=$i+1 ?></span>
-                            <span class="text-[13px] truncate"><?= $news['newsId'] ?></span>
-                            <span class="text-[13px] col-span-4 truncate max-w-[400px]"><?= $news['newsTitle'] ?></span>
-                            <span class="text-[13px] truncate"><?= $news['newsCreatedDate'] ?></span>
-                            <span class="text-[13px] truncate"><?= $news['newsLastUpdate'] ?></span>
-                            <span class="text-[13px] truncate"><button type="button" onclick="window.location.href='http://localhost/PharmaDI-Admin/news/news-new.php'"
-                        class="border-[#15A5E3] border border-solid px-[12px] py-[5px] text-[13px] rounded-[8px] text-[#0071AF]">Xoá tin tức</button></span>
+                        <div class="grid grid-cols-8 py-[15px] border-b cursor-pointer"
+                            onclick="window.location.href = 'http://localhost/PharmaDI-Admin/news/news-detail.php?newsId=<?= $news['newsId'] ?>'">
+                            <span class="text-[13px] truncate ">
+                                <?= $i = $i + 1 ?>
+                            </span>
+                            <span class="text-[13px] truncate">
+                                <?= $news['newsId'] ?>
+                            </span>
+                            <span class="text-[13px] col-span-4 truncate max-w-[400px]">
+                                <?= $news['newsTitle'] ?>
+                            </span>
+                            <span class="text-[13px] truncate">
+                                <?= $news['newsCreatedDate'] ?>
+                            </span>
+                            <span class="text-[13px] truncate">
+                                <?= $news['newsLastUpdate'] ?>
+                            </span>
                         </div>
                     <?php endforeach; ?>
                     <div class="flex items-center justify-end mt-[20px]">
                         <div class="flex">
                             <select class="border border-[#d8d8d8] text-[13px] px-1 rounded-[2px] outline-0 mr-[10px]"
                                 onchange="this.form.submit()" name='pageSize'>
-                                <option value="10" <?php if($pageSize == 10) echo "selected"?>>10</option>
-                                <option value="30" <?php if($pageSize == 30) echo "selected"?>>30</option>
-                                <option value="50" <?php if($pageSize == 50) echo "selected"?>>50</option>
-                            </select>
-                            <span class="text-[13px] text-[#505050]">Tổng số <?= count($newsArray) ?> kết quả</span>
+                                <option value="10" <?php if ($pageSize == 10)
+                                    echo "selected" ?>>10</option>
+                                    <option value="30" <?php if ($pageSize == 30)
+                                    echo "selected" ?>>30</option>
+                                    <option value="50" <?php if ($pageSize == 50)
+                                    echo "selected" ?>>50</option>
+                                </select>
+                                <span class="text-[13px] text-[#505050]">Tổng số
+                                <?= count($newsArray) ?> kết quả
+                            </span>
                         </div>
                         <div class="flex items-center pl-[10px]">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
@@ -159,11 +175,13 @@ $pageSize = isset($_GET['pageSize']) ? $_GET['pageSize'] : 10;
                             </svg>
                             <div class="w-[100px] overflow-hidden relative h-[20px]">
                                 <div class="flex cursor-pointer" id="container-slide" style="--transitionto:0px">
-                                <input type="text" class="hidden" name='page' id='page-news' value='<?= $page ?>'>
-                                <?php
-                                    for($i = 0; $i <= floor(count($newsArray)/$pageSize); $i++): ?>
-                                    <span class="text-[13px] px-1 min-w-[20px] min-h-[20px] rounded-full flex justify-center items-center" onclick="document.getElementById('page-news').value = <?= $i+1?>; submitForm('form-news-search')"><?=$i+1?></span>
-                                <?php endfor ?>
+                                    <input type="text" class="hidden" name='page' id='page-news' value='<?= $page ?>'>
+                                    <?php
+                                    for ($i = 0; $i <= floor(count($newsArray) / $pageSize); $i++): ?>
+                                        <span
+                                            class="text-[13px] px-1 min-w-[20px] min-h-[20px] rounded-full flex justify-center items-center"
+                                            onclick="document.getElementById('page-news').value = <?= $i + 1 ?>; submitForm('form-news-search')"><?= $i + 1 ?></span>
+                                    <?php endfor ?>
                                 </div>
                             </div>
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" onclick="slide(true)"
@@ -179,7 +197,7 @@ $pageSize = isset($_GET['pageSize']) ? $_GET['pageSize'] : 10;
                                     fill="#505050" />
                             </svg>
                         </div>
-                                    </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -195,10 +213,10 @@ $pageSize = isset($_GET['pageSize']) ? $_GET['pageSize'] : 10;
         dom.getElementsByTagName('input')[0].value = value;
         dom.getElementsByTagName('input')[1].value = label;
     }
-    function changePageSize(value){
+    function changePageSize(value) {
         console.log(value)
     }
-    function submitForm(id){
+    function submitForm(id) {
         document.getElementById(id).submit()
     }
 </script>

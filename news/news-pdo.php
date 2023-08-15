@@ -19,4 +19,9 @@ class News extends Connection
         $select->execute();
         return $select->fetchAll()[0];
     }
+    public function newsUpdate($data){
+        $sql = "UPDATE news SET newsTitle=:newsTitle, newsImage=:newsData, newsImgTitle=:newsImgTitle, newsContent=:newsContent WHERE newsId = :newsId;";
+        $select = $this->prepareSQL($sql);
+        $select->execute($data);
+    }
 }

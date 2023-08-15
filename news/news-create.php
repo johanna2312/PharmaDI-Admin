@@ -59,7 +59,7 @@
             <div class="flex flex-col px-[40px] py-[20px] text-[#505050]">
                 <!-- Breadscumb -->
                 <div class="flex items-center text-[14px]">
-                    <span class="px-1">Danh sách tin tức</span>
+                    <span onclick="window.location.href='http://localhost/PharmaDI-Admin/news/news-list.php'" class="px-1">Danh sách tin tức</span>
                     <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd"
                             d="M1.09327 0.692102C1.35535 0.467463 1.74991 0.497814 1.97455 0.759893L6.97455 6.59323C7.17517 6.82728 7.17517 7.17266 6.97455 7.40672L1.97455 13.24C1.74991 13.5021 1.35535 13.5325 1.09327 13.3078C0.831188 13.0832 0.800837 12.6886 1.02548 12.4266L5.67684 6.99997L1.02548 1.57338C0.800837 1.3113 0.831188 0.916741 1.09327 0.692102Z"

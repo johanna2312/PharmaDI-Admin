@@ -74,7 +74,7 @@ $newsArray = $news->newsDetail($_GET['newsId']);
                 <!-- Title -->
                 <div class="flex justify-between items-center py-[25px]">
                     <span class="text-[#0071AF] font-[600]">CHI TIẾT TIN TỨC</span>
-                    <button type="button" onclick="window.location.href='http://localhost/PharmaDI-Admin/news/news-edit.php'"
+                    <button type="button" onclick="window.location.href='http://localhost/PharmaDI-Admin/news/news-edit.php?newsId=<?=$newsArray['newsId']?>'"
                         class="border-[#15A5E3] border border-solid px-[12px] py-[5px] text-[13px] rounded-[8px] text-[#0071AF]">Chỉnh sửa</button>
                 </div>
                 <!-- Textbox -->
